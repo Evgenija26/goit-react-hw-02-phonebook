@@ -1,41 +1,45 @@
 import React from "react";
+import { nanoid } from 'nanoid';
+import css from "./ContactForm.module.css";
 
 export class ContactForm extends React.Component {
+  
     state = {
-    contacts: [],
     name: '',
     number: '',
     
   };
 
-  // Отвечает за обновление состояния
-    handleChange = e => {
-      const { name, value} = e.carentTarget 
-    this.setState({ [name]: value });
+    nameInputId = nanoid();
+  numberInputId = nanoid();
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onSubmit({ name: this.state.name, number: this.state.number });
+    
+    this.reset();
   };
 
-  // Вызывается при отправке формы
-  handleSubmit = evt => {
-    evt.preventDefault();
-
-    // Проп который передается форме для вызова при сабмите
-      this.props.onSubmit({ ...this.state });
-      
-      this.reset();
-    };
+  // Отвечает за обновление состояния
+    handleChange = e => {
+      const { name, value} = e.target;
+    this.setState({ [name]: value });
+  };
     
     reset = () => {
-        this.setState({contacts: [],
+        this.setState({number: '',
     name: ''})
     }
 
   render() {
-
+    // const { name } = this.state;
     return (
-      <form onSubmit={this.handleSubmit} >
-        <label>
+      <form onSubmit={this.handleSubmit} className={css.ContactForm}>
+        <label className={css.ContactForm__label}>
           Name
           <input
+            className={css.ContactForm__input}
             type="text"
             name='name'
             value={this.state.name}
@@ -46,12 +50,13 @@ export class ContactForm extends React.Component {
           />
         </label>
 
-        <label>
+        <label className={css.ContactForm__label}>
           Number
           <input
+            className={css.ContactForm__input}
             type="tel"
             name="number"
-            value={this.state.name}
+            value={this.state.number}
             onChange={this.handleChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -60,7 +65,7 @@ export class ContactForm extends React.Component {
           
         </label>
 
-        <button type="submit" className="Button">Add contact </button>
+        <button type="submit" className={css.ContactForm__button}>Add contact </button>
       </form>
     );
   }
