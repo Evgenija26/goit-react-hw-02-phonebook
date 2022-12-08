@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm'
 import { Contacts } from "./Contacts/Contacts";
 import { nanoid } from 'nanoid';
-import Filter from "./Filter/Filter";
+import {Filter} from "./Filter/Filter";
 
 
 
@@ -93,7 +93,7 @@ export class App extends Component {
         {visibleContacts.length > 1 && (
           <Filter value={filter} onChangeFilter={this.changeFilter} />
         )}
-        {visibleContacts.length > 0 && (
+        {visibleContacts.length > 1 && (
           <Contacts
             contacts={visibleContacts}
             onRemoveContact={this.removeContact}
