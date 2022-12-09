@@ -1,7 +1,8 @@
 import React from "react";
 import css from "./Filter.module.css";
 
-export const Filter = ({ value, onChangeFilter }) => {
+export default function Filter({ value, onChangeFilter }) {
+  
   return (
     <div className={css.Filter}>
       Find contacts by name 
@@ -9,7 +10,7 @@ export const Filter = ({ value, onChangeFilter }) => {
         className={css.Filter__input}
         type="text"
         value={value}
-        onChange={(e) => onChangeFilter(e.target.value)}
+        onChange={(e) => onChangeFilter(e.currentTarget.value)}
       />
     </div>
   );

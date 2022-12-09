@@ -50,7 +50,7 @@ export class ContactForm extends React.Component {
           />
         </label>
 
-        <label htmlFor={this.nameInputId} className={css.ContactForm__label}>
+        <label htmlFor={this.numberInputId} className={css.ContactForm__label}>
           Number
           <input
             className={css.ContactForm__input}

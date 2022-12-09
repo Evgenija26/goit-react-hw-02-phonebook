@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm'
 import { Contacts } from "./Contacts/Contacts";
 import { nanoid } from 'nanoid';
-import {Filter} from "./Filter/Filter";
+import Filter from "./Filter/Filter";
 
 
 
@@ -28,39 +28,20 @@ export class App extends Component {
       return;
     }
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, { id: nanoid(), ...contact }],
+      contacts: [{ id: nanoid(), ...contact }, ...prevState.contacts, ],
     }));
   };
-  //   addContact = (task) => {
-  //   const searchSameName = this.state.contacts
-  //     .map((contacts) => contacts.name)
-  //     .includes(task.name);
 
-  //   if (searchSameName) {
-  //     alert(`${task.name} is already in contacts`);
-  //   } else if (task.name.length === 0) {
-  //     alert("Fields must be filled!");
-  //   } else {
-  //     const contact = {
-  //       ...task,
-  //       id: nanoid(),
-  //     };
-
-  //     this.setState((prevState) => ({
-  //       contacts: [...prevState.contacts, contact],
-  //     }));
-  //   }
-  // };
-
-    changeFilter = (filter) => {
-    this.setState({ filter });
+    changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
   };
 
     getVisibleContacts = () => {
-    const { contacts, filter } = this.state;
-
-    return contacts.filter((contacts) =>
-      contacts.name.toLowerCase().includes(filter.toLowerCase())
+    const { filter, contacts, } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+      
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
@@ -71,18 +52,12 @@ export class App extends Component {
       };
     });
   };
-
-
-  formSubmitHandler = data => {
-    console.log(data);
-  };
   
   render() {
     const visibleContacts = this.getVisibleContacts();
     const { filter } = this.state;
     
     return (
-
       <div >
         <h1>Phonebook</h1>
         <GlobalStyle />
@@ -90,8 +65,10 @@ export class App extends Component {
           onSubmit={this.addContact}/>
 
         <h2>Contacts</h2>
-        {visibleContacts.length > 1 && (
-          <Filter value={filter} onChangeFilter={this.changeFilter} />
+        {visibleContacts.length > 1 ? (
+          <Filter value={filter} onChange={this.changeFilter} />
+        ) : (
+          'Your phonebook is empty. Add first contact!'
         )}
         {visibleContacts.length > 1 && (
           <Contacts
@@ -101,29 +78,6 @@ export class App extends Component {
         )}
       </div>
     );
-  
-
-
-//     <div>
-//   <h1>Phonebook</h1>
-//   <ContactForm ... />
-
-//   <h2>Contacts</h2>
-//   <Filter ... />
-//   
-// </div>
-  // 
-    // <div style={{
-    //     height: '100vh',
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     fontSize: 40,
-    //     color: '#010101'
-    //   }}>
-    //   Evgenija
-    // </div>
-  
   };
 };
 
