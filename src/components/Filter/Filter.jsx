@@ -10,7 +10,7 @@ export default function Filter({ value, onChangeFilter }) {
         className={css.Filter__input}
         type="text"
         value={value}
-        onChange={(e) => onChangeFilter(e.currentTarget.value)}
+        onChange={onChangeFilter}
       />
     </div>
   );

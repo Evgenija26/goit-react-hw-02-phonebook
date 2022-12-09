@@ -33,7 +33,7 @@ export class App extends Component {
   };
 
     changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
+    this.setState({ filter: e.target.value });
   };
 
     getVisibleContacts = () => {
@@ -65,12 +65,12 @@ export class App extends Component {
           onSubmit={this.addContact}/>
 
         <h2>Contacts</h2>
-        {visibleContacts.length > 1 ? (
-          <Filter value={filter} onChange={this.changeFilter} />
+        {this.state.contacts.length > 1 ? (
+          <Filter value={filter} onChangeFilter={this.changeFilter} />
         ) : (
           'Your phonebook is empty. Add first contact!'
         )}
-        {visibleContacts.length > 1 && (
+        {this.state.contacts.length > 1 && (
           <Contacts
             contacts={visibleContacts}
             onRemoveContact={this.removeContact}
