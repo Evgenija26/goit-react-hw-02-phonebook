@@ -65,12 +65,12 @@ export class App extends Component {
           onSubmit={this.addContact}/>
 
         <h2>Contacts</h2>
-        {this.state.contacts.length > 1 ? (
+        {this.state.contacts.length > 0 ? (
           <Filter value={filter} onChangeFilter={this.changeFilter} />
         ) : (
           'Your phonebook is empty. Add first contact!'
         )}
-        {this.state.contacts.length > 1 && (
+        {this.state.contacts.length > 0 && (
           <Contacts
             contacts={visibleContacts}
             onRemoveContact={this.removeContact}
